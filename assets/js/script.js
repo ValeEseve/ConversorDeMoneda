@@ -19,6 +19,8 @@ async function convertirMoneda() {
         tituloMoneda = "Euro"
     }
     resultadoTxt.innerHTML = `$ ${resultadoDosDecimales} ${moneda}`
+    dataOrdenada = await ordenarFecha(valoresMoneda)
+    renderGrafica(dataOrdenada, tituloMoneda)
 }
 
 const obtenerValoresMoneda = async (moneda) => {
@@ -37,25 +39,31 @@ const obtenerValoresMoneda = async (moneda) => {
 
 const ordenarFecha = async (data) => {
     data.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
-    for (objeto of data) {
+    for (const objeto of data) {
         objeto.fecha = objeto.fecha.slice(0, 10)
     }
     return data
 }
 
-function configurarGrafica(data, moneda, tituloMoneda){
+function configurarGrafica(dataMoneda, tituloMoneda){
     const config = {
         type: "line",
         data: {
-            labels: moneda,
+            labels: dataMoneda.map(objeto => objeto.fecha),
             datasets: [{
                 label: tituloMoneda,
                 backgroundColor: "white",
-                data: data,
+                data: dataMoneda.map(objeto => objeto.valor),
             }]
         }
     }
     return config
+}
+
+function renderGrafica (data, tituloMoneda){
+    const chartDOM = document.querySelector("#myChart").getContext("2d")
+    const config = configurarGrafica(data, tituloMoneda)
+    new Chart(chartDOM, config)
 }
 
 
