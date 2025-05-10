@@ -1,10 +1,11 @@
 // Variables
 const btn = document.querySelector("#btn-convertir")
+let myChart = null;
 
 // Funciones
 async function convertirMoneda() {
     let tituloMoneda = ""
-    const cifra = Number(document.querySelector("#input-cifra").value)
+    const cifra = Number(document.querySelector("#input-cifra").value.trim())
     let moneda = document.querySelector("#select-moneda").value.toString()
     let resultadoTxt = document.querySelector("#resultado-conversion")
     const valoresMoneda = await obtenerValoresMoneda(moneda)
@@ -18,7 +19,7 @@ async function convertirMoneda() {
         moneda = "euros"
         tituloMoneda = "Euro"
     }
-    resultadoTxt.innerHTML = `$ ${resultadoDosDecimales} ${moneda}`
+    resultadoTxt.innerHTML = `Resultado: $ ${resultadoDosDecimales} ${moneda}`
     dataOrdenada = await ordenarFecha(valoresMoneda)
     renderGrafica(dataOrdenada, tituloMoneda)
 }
@@ -52,6 +53,7 @@ function configurarGrafica(dataMoneda, tituloMoneda){
             labels: dataMoneda.map(objeto => objeto.fecha),
             datasets: [{
                 label: tituloMoneda,
+                borderColor: "red",
                 backgroundColor: "white",
                 data: dataMoneda.map(objeto => objeto.valor),
             }]
@@ -63,20 +65,21 @@ function configurarGrafica(dataMoneda, tituloMoneda){
 function renderGrafica (data, tituloMoneda){
     const chartDOM = document.querySelector("#myChart").getContext("2d")
     const config = configurarGrafica(data, tituloMoneda)
-    new Chart(chartDOM, config)
+    if (myChart) {
+        myChart.destroy()
+    }
+    myChart = new Chart(chartDOM, config)
 }
 
-
-// Configurar el objeto de datos para Chart.js
-// Prepara un objeto con los arrays de etiquetas y valores, y los estilos que quieras aplicar (colores, tipo de línea, etc.).
-
-// Configurar el objeto de opciones del gráfico
-// Define el tipo de gráfico, el título, los ejes, la leyenda, etc.
-
-// Renderizar el gráfico en un <canvas> de HTML
-// Asegúrate de tener un <canvas id="myChart"> en tu HTML donde se dibujará el gráfico.
-
-// Instanciar el gráfico con new Chart()
-// Usa la clase Chart de Chart.js pasando el contexto del canvas, los datos y las opciones.
-
-btn.addEventListener("click", convertirMoneda)
+btn.addEventListener("click", () =>{
+    const input = document.querySelector("#input-cifra").value.trim()
+    const select = document.querySelector("#select-moneda").value
+    let resultadoTxt = document.querySelector("#resultado-conversion")
+    if (input !== "" && select !== ""){
+        convertirMoneda()
+    } else if (input == ""){
+        resultadoTxt.innerHTML = "Ingrese una cifra a calcular"
+    } else{
+        resultadoTxt.innerHTML = "Seleccione la moneda a convertir"
+    }
+})

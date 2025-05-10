@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversor de monedas Nacional</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-    <hr>
-    <h1>Conversor de monedas Nacional</h1>
-    <hr>
-    <section class="conversor">
-        <h3>Pesos CLP</h3>
-        <input type="text" id="input-cifra" placeholder="Ingrese el monto en CLP">
-        <h4>Moneda a convertir:</h4>
-        <select name="" id="select-moneda">
-            <option value="dolar">Dólar</option>
-            <option value="euro">Euro</option>
-        </select>
-        <button id="btn-convertir">Buscar</button>
-        <div id="resultado-conversion">...</div>
-    </section>
-    <section class="grafica">
-        <canvas id="myChart"></canvas>
-    </section>
+    <main>
+        <section>
+            <hr>
+            <h1>Conversor de monedas Nacional</h1>
+            <hr>
+        </section>
+        <section class="conversor">
+            <span id="titulo">Pesos CLP</span>
+            <input type="text" id="input-cifra" placeholder="Ingrese el monto en CLP">
+            <p>Moneda a convertir:</p>
+            <select name="" id="select-moneda">
+                <option value="" disabled selected>Selecciona moneda</option>
+                <option value="dolar">Dólar</option>
+                <option value="euro">Euro</option>
+            </select>
+            <button id="btn-convertir">Buscar</button>
+            <div id="resultado-conversion">...</div>
+        </section>
+        <section class="grafica">
+            <canvas id="myChart"></canvas>
+        </section>
+    </main>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

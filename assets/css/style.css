@@ -1,0 +1,57 @@
+body{
+    font-family: "Roboto";
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    background-color: rgb(29, 34, 41);
+    color: white;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 0px 30px 30px 30px;
+}
+
+#titulo{
+    font-size: 25px;
+}
+
+hr{
+    border-color: rgb(32, 104, 122);
+}
+
+.conversor{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(105, 109, 117);
+    margin: 0px 150px 10px 150px;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 5px 
+}
+
+.conversor p{
+    margin: 0;
+}
+
+input, select, button{
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+}
+
+
+button{
+    background-color: rgb(20, 204, 236);
+    color: white;
+}
+
+canvas{
+    display: none;
+    background-color: white;
+}
